@@ -8,3 +8,8 @@ This repository was made for the SmashCPU Discord.
 * Generate an API key at https://challonge.com/settings/developer and put it in `challonge_credentials.txt` along with your username.
 * Write a tournament txt file according to one of the examples.
 * Run `AutoBots.py` and direct it to your tournament txt file.
+
+## Showdown
+Made for the Docker version of https://github.com/pmariglia/showdown.
+
+Put your Pokémon Showdown account information in `Showdown.py`. This has an extra dependency on `docker` which you can get at https://pypi.org/project/docker/.

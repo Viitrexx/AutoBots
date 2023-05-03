@@ -1,0 +1,7 @@
+Format: Showdown
+Name: AutoBots Showdown Test
+URL: autobotsshowdowntest
+Sakurai, gen8/ou/balance, gen8ou, safest
+Clef, gen8/ou/clef_sand, gen8ou, safest
+Toad, gen8/ou/band_toad, gen8ou, safest
+Randy, gen8/ou, gen8ou, nash_equilibrium

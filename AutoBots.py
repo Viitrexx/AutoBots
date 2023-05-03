@@ -25,6 +25,11 @@ for p in participants:
         name, typing = p.split(",")
         print(f"Create player {name.strip()} as {typing.strip()}")
         players.append(Player(name.strip(), typing.strip()))
+    elif ttype == "Showdown":
+        from Showdown import *
+        name, team, mode, bot = p.split(",")
+        print(f"Create player {name.strip()} using {team.strip()}")
+        players.append(Player(name.strip(), team.strip(), mode.strip(), bot=bot.strip()))
     else:
         assert(False)
     
