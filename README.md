@@ -16,9 +16,9 @@ Put your Pokémon Showdown account information in `Showdown.py`. This has an ext
 
 #### Avatar support
 
-In order to support avatars from https://play.pokemonshowdown.com/sprites/trainers/ you have to edit `run.py` and `config.py`. 
+In order to support avatars from https://play.pokemonshowdown.com/sprites/trainers/ you have to edit `run.py` and `config.py` in pmariglia's `showdown`. 
 
-```
+```py
 # run.py after login()
 await ps_websocket_client.send_message('', ['/avatar ' + ShowdownConfig.avatar])
 # config.py around configure()
