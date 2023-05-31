@@ -17,12 +17,13 @@ replaypattern = re.compile("\"battle-(?P<url>[A-Za-z0-9\-]+)\"")
 waitforlogin = 10 #seconds
 
 class Player:
-    def __init__(self, name, team, mode, bot="safest"):
+    def __init__(self, name, team, mode, bot="safest", avatar="heroine-conquest"):
         self.name = name
         self.team = team
         self.mode = mode
         self.bot = bot
         self.info = f"{team}-{bot}"
+        self.avatar = avatar
 
 def play(player1, player2, **params):
     big_description = ""
@@ -38,9 +39,9 @@ def play(player1, player2, **params):
         client = docker.from_env()
         client.containers.prune(filters={'label':'autobots'})
         # set TEAM_NAME, POKEMON_MODE, and BATTLE_BOT
-        client.containers.run("showdown", name="Player2", environment=env2 + [f"TEAM_NAME={player2.team}", f"POKEMON_MODE={player2.mode}", f"BATTLE_BOT={player2.bot}"], detach=True, labels=['autobots'])
+        client.containers.run("showdown", name="Player2", environment=env2 + [f"TEAM_NAME={player2.team}", f"POKEMON_MODE={player2.mode}", f"BATTLE_BOT={player2.bot}", f"AVATAR={player2.avatar}"], detach=True, labels=['autobots'])
         time.sleep(waitforlogin) # give player 2 some time to log in successfully
-        output = client.containers.run("showdown", name="Player1", environment=env1 + [f"TEAM_NAME={player1.team}", f"POKEMON_MODE={player1.mode}", f"BATTLE_BOT={player1.bot}"], labels=['autobots']).decode('utf-8')
+        output = client.containers.run("showdown", name="Player1", environment=env1 + [f"TEAM_NAME={player1.team}", f"POKEMON_MODE={player1.mode}", f"BATTLE_BOT={player1.bot}", f"AVATAR={player1.avatar}"], labels=['autobots']).decode('utf-8')
         for line in output.split('\n'):
             m = winnerpattern.match(line)
             if m:

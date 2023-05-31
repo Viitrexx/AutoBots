@@ -5,7 +5,7 @@ import time
 
 print("Name of tournament file.txt")
 inputt = input()
-f = open(f"{inputt}.txt", "r")
+f = open(f"{inputt}.txt", "r", encoding="utf-8")
 ttype = f.readline()[len("Format: "):].strip()
 tname = f.readline()[len("Name: "):].strip()
 url = f.readline()[len("URL: "):].strip()
@@ -27,9 +27,9 @@ for p in participants:
         players.append(Player(name.strip(), typing.strip()))
     elif ttype == "Showdown":
         from Showdown import *
-        name, team, mode, bot = p.split(",")
+        name, team, mode, bot, avatar = p.split(",")
         print(f"Create player {name.strip()} using {team.strip()}")
-        players.append(Player(name.strip(), team.strip(), mode.strip(), bot=bot.strip()))
+        players.append(Player(name.strip(), team.strip(), mode.strip(), bot=bot.strip(), avatar=avatar.strip()))
     else:
         assert(False)
     

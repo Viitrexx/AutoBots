@@ -1,0 +1,7 @@
+Format: Showdown
+Name: Showdown Avatar Test
+URL: showdownavatartest
+May, metronome/0/Ludicolo, gen9customgame, most_damage, may
+Serena, metronome/0/Diancie, gen9customgame, most_damage, serena-masters
+Pokékid, metronome/0/Plusle, gen9customgame, most_damage, pokekid
+Pkcntr Lady, metronome/0/Blissey, gen9customgame, most_damage, pokemoncenterlady

@@ -13,3 +13,15 @@ This repository was made for the SmashCPU Discord.
 Made for the Docker version of https://github.com/pmariglia/showdown.
 
 Put your Pokémon Showdown account information in `Showdown.py`. This has an extra dependency on `docker` which you can get at https://pypi.org/project/docker/.
+
+#### Avatar support
+
+In order to support avatars from https://play.pokemonshowdown.com/sprites/trainers/ you have to edit `run.py` and `config.py`. 
+
+```
+# run.py after login()
+await ps_websocket_client.send_message('', ['/avatar ' + ShowdownConfig.avatar])
+# config.py around configure()
+avatar: str
+self.avatar = env("AVATAR")
+```
