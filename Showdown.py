@@ -37,9 +37,18 @@ def play(player1, player2, **params):
         description = ""
         # docker run --env-file env showdown
         client = docker.from_env()
-        client.containers.prune(filters={'label':'autobots'})
-        # set TEAM_NAME, POKEMON_MODE, and BATTLE_BOT
-        client.containers.run("showdown", name="Player2", environment=env2 + [f"TEAM_NAME={player2.team}", f"POKEMON_MODE={player2.mode}", f"BATTLE_BOT={player2.bot}", f"AVATAR={player2.avatar}"], detach=True, labels=['autobots'])
+        pruned = client.containers.prune(filters={'label':'autobots'})
+        # sometimes Player2 is not pruned
+        ok = False
+        while not ok:
+            try:
+                # set TEAM_NAME, POKEMON_MODE, and BATTLE_BOT
+                client.containers.run("showdown", name="Player2", environment=env2 + [f"TEAM_NAME={player2.team}", f"POKEMON_MODE={player2.mode}", f"BATTLE_BOT={player2.bot}", f"AVATAR={player2.avatar}"], detach=True, labels=['autobots'])
+                ok = True
+            except:
+                print("Player2 was not pruned.")
+                time.sleep(2)
+                client.containers.prune(filters={'label':'autobots'})
         time.sleep(waitforlogin) # give player 2 some time to log in successfully
         output = client.containers.run("showdown", name="Player1", environment=env1 + [f"TEAM_NAME={player1.team}", f"POKEMON_MODE={player1.mode}", f"BATTLE_BOT={player1.bot}", f"AVATAR={player1.avatar}"], labels=['autobots']).decode('utf-8')
         for line in output.split('\n'):
