@@ -11,8 +11,8 @@ pspw2 = "pw2"
 env1 = ["WEBSOCKET_URI=sim.smogon.com:8000", f"PS_USERNAME={psuser1}", f"PS_PASSWORD={pspw1}", "BOT_MODE=CHALLENGE_USER", f"USER_TO_CHALLENGE={psuser2}", "RUN_COUNT=1", "LOG_LEVEL=DEBUG", "SAVE_REPLAY=True"]
 env2 = ["WEBSOCKET_URI=sim.smogon.com:8000", f"PS_USERNAME={psuser2}", f"PS_PASSWORD={pspw2}", "BOT_MODE=ACCEPT_CHALLENGE", "RUN_COUNT=1", "SAVE_REPLAY=True"]
 
-winnerpattern = re.compile("\[DEBUG\]\s*Winner:\s*(?P<name>[A-Za-z0-9 -_!#%€.\\\/]+)")
-replaypattern = re.compile("battle-(?P<url>[A-Za-z0-9\-]+)\|\/savereplay")
+winnerpattern = re.compile(r"\[DEBUG\]\s*Winner:\s*(?P<name>[A-Za-z0-9 -_!#%€.\\\/]+)")
+replaypattern = re.compile(r"battle-(?P<url>[A-Za-z0-9\-]+)\|\/savereplay")
 
 waitforlogin = 10 #seconds
 
