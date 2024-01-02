@@ -1,8 +1,16 @@
 import challonge
 import time
 
-# Read participants from txt file
+# Auxiliary functions
+def retry(command):
+    while True:
+        try:
+            v = command()
+            return v
+        except:
+            pass
 
+# Read participants from txt file
 print("Name of tournament file.txt")
 inputt = input()
 f = open(f"{inputt}.txt", "r", encoding="utf-8")
@@ -50,7 +58,7 @@ except:
 challonge.tournaments.create(tname, url, "double elimination", description=f"Auto-generated tournament using AutoBots. Ran at Unix time {time.time()}.", accept_attachments=True)
 tournament = challonge.tournaments.show(url)
 for p in players:
-    challonge.participants.create(tournament["id"], p.name)
+    retry(lambda: challonge.participants.create(tournament["id"], p.name))
 challonge.participants.randomize(tournament["id"])
 challonge.tournaments.start(tournament["id"])
 
@@ -86,14 +94,14 @@ while(notDone(matches)):
     p2 = player_id_dict[m["player2_id"]]
     winner, score, description = play(p1, p2, best_of=9)
     winner_id = m["player1_id"] if winner else m["player2_id"]
-    challonge.matches.update(tournament["id"], m_id, scores_csv=score, winner_id=winner_id)
-    challonge.attachments.create(tournament["id"], m_id, description=description)
+    retry(lambda: challonge.matches.update(tournament["id"], m_id, scores_csv=score, winner_id=winner_id))
+    retry(lambda: challonge.attachments.create(tournament["id"], m_id, description=description))
     # Update match list
-    matches = challonge.matches.index(tournament["id"])
+    matches = retry(lambda: challonge.matches.index(tournament["id"]))
 
 # Add extra info to participant names
 for p in participants:
     new_name = f"{p['name']} ({player_id_dict[p['id']].info})"
-    challonge.participants.update(tournament["id"], p["id"], name=new_name)
+    retry(lambda: challonge.participants.update(tournament["id"], p["id"], name=new_name))
 
 challonge.tournaments.finalize(tournament["id"])
